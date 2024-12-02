@@ -16,7 +16,9 @@ public class PlayerMovement : MonoBehaviour
     {
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
-        animator.SetFloat("Movement", movement.x);
+
+        animator.SetBool("IsMoving", movement != Vector2.zero);
+
         ReflectPlayerSprite();
     }
 
