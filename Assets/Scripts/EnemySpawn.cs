@@ -1,68 +1,43 @@
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class SimpleEnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab; 
-    public LayerMask grassLayer; 
-    public float spawnRadius = 10f; 
-    public float spawnCheckRadius = 0.5f; 
-    public float spawnInterval = 3f; 
+    public GameObject enemyPrefab;
+    public Transform player;
+    public float spawnInterval = 2f;
+    public int maxEnemies = 10;
+    public Rect spawnArea;
 
-    private Transform player;
-    private Camera mainCamera;
+    private int currentEnemyCount = 0;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform; 
-        mainCamera = Camera.main;
         InvokeRepeating(nameof(SpawnEnemy), spawnInterval, spawnInterval);
     }
 
     void SpawnEnemy()
     {
-        Vector3 spawnPosition;
-        int attempts = 10;
+        if (currentEnemyCount >= maxEnemies) return;
 
-        do
+        float spawnX = Random.Range(spawnArea.xMin, spawnArea.xMax);
+        float spawnY = Random.Range(spawnArea.yMin, spawnArea.yMax);
+        Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0);
+
+        if (!IsInView(spawnPosition))
         {
-            attempts--;
-            spawnPosition = GetRandomPosition();
-
-            if (attempts <= 0)
-            {
-                Debug.LogWarning("No se encontró una posición válida para spawnear un enemigo.");
-                return;
-            }
+            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            currentEnemyCount++;
         }
-        while (!IsPositionValid(spawnPosition));
-
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
     }
 
-    Vector3 GetRandomPosition()
+    bool IsInView(Vector3 position)
     {
-        Vector3 randomOffset = Random.insideUnitCircle * spawnRadius;
-        randomOffset.z = 0;
-        return player.position + randomOffset;
+        Vector3 viewportPosition = Camera.main.WorldToViewportPoint(position);
+        return viewportPosition.x > 0 && viewportPosition.x < 1 && viewportPosition.y > 0 && viewportPosition.y < 1;
     }
 
-    bool IsPositionValid(Vector3 position)
+    public void OnEnemyDestroyed()
     {
-        Vector3 viewportPoint = mainCamera.WorldToViewportPoint(position);
-        if (viewportPoint.x > 0 && viewportPoint.x < 1 && viewportPoint.y > 0 && viewportPoint.y < 1)
-        {
-            return false;
-        }
-
-        Collider2D hit = Physics2D.OverlapCircle(position, spawnCheckRadius, grassLayer);
-        return hit != null;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (player == null) return;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(player.position, spawnRadius);
+        currentEnemyCount--;
     }
 }

@@ -19,12 +19,15 @@ public class WeaponController : MonoBehaviour
     public float spreadAngle = 30f;
 
     private SpriteRenderer weaponRenderer;
+    public Collider2D swordCollider;
 
     void Start()
     {
+        swordCollider = Weapon.GetComponent<Collider2D>();
         weaponRenderer = Weapon.GetComponent<SpriteRenderer>();
         Crosshair.gameObject.SetActive(false);
         weaponRenderer.sprite = Katana;
+        swordCollider.enabled = true;
     }
 
     void Update()
@@ -49,11 +52,13 @@ public class WeaponController : MonoBehaviour
         {
             weaponRenderer.sprite = Shotgun;
             Crosshair.gameObject.SetActive(true);
+            swordCollider.enabled = false;
         }
         else
         {
             weaponRenderer.sprite = Katana;
             Crosshair.gameObject.SetActive(false);
+            swordCollider.enabled = true;
         }
     }
     void Shoot()

@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!61 &159337310 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8464684136343492554, guid: 5ab152e11d5f85541ac45062250c39b9, type: 3}
+  m_PrefabInstance: {fileID: 7862206389396997173}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &347033144 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7128945542716250999, guid: 5ab152e11d5f85541ac45062250c39b9, type: 3}
@@ -411,6 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1150271848}
   - component: {fileID: 1150271847}
+  - component: {fileID: 1150271849}
   m_Layer: 3
   m_Name: Grass
   m_TagString: Untagged
@@ -485,6 +491,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1150271849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150271846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338dd46fd9523f146937f51d5c9c43f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 8641476946658602219, guid: 658f15d1b9ccbd641b63bab004e07709, type: 3}
+  player: {fileID: 347033144}
+  spawnInterval: 2
+  maxEnemies: 30
+  spawnArea:
+    serializedVersion: 2
+    x: -18
+    y: -12
+    width: 14.3
+    height: 7.7
 --- !u!1 &1381892481
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,9 +682,25 @@ PrefabInstance:
       propertyPath: Crosshair
       value: 
       objectReference: {fileID: 1381892483}
+    - target: {fileID: 2730453276683598800, guid: 5ab152e11d5f85541ac45062250c39b9, type: 3}
+      propertyPath: spreadAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2730453276683598800, guid: 5ab152e11d5f85541ac45062250c39b9, type: 3}
+      propertyPath: swordCollider
+      value: 
+      objectReference: {fileID: 159337310}
+    - target: {fileID: 2730453276683598800, guid: 5ab152e11d5f85541ac45062250c39b9, type: 3}
+      propertyPath: shotgunBullets
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2776605624919482642, guid: 5ab152e11d5f85541ac45062250c39b9, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776605624919482642, guid: 5ab152e11d5f85541ac45062250c39b9, type: 3}
+      propertyPath: m_TagString
+      value: Sword
       objectReference: {fileID: 0}
     - target: {fileID: 4169938493983070192, guid: 5ab152e11d5f85541ac45062250c39b9, type: 3}
       propertyPath: m_Layer
