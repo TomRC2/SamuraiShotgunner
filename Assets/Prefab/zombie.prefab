@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: -1591197284783683899}
   m_Layer: 3
   m_Name: zombie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -527,4 +527,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  experienceOrbPrefab: {fileID: 2731259890760927237, guid: 1b8e49b2d4cb72c4d834ccc81c3db929, type: 3}
   healthBar: {fileID: 5897945779184516521}

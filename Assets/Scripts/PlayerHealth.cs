@@ -1,41 +1,107 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealthShield : MonoBehaviour
 {
-    public float saludMaxima = 100f;
-    private float saludActual;
+    public float maxHealth = 100f;
+    public float maxShield = 100f;
+    public float shieldRegenRate = 5f;
+    public float shieldRegenDelay = 3f;
+    public Scrollbar healthBar;
+    public Scrollbar shieldBar;
+
+    public string[] damageTags;
+    public float[] damageValues;
+
+    private float currentHealth;
+    private float currentShield;
+    private float shieldRegenTimer;
 
     void Start()
     {
-        saludActual = saludMaxima;
+        currentHealth = maxHealth;
+        currentShield = maxShield;
+
+        UpdateUI();
     }
 
-    public void RecibirDaño(float cantidad)
+    void Update()
     {
-        saludActual -= cantidad;
-        Debug.Log("Jugador recibió daño: " + cantidad + " puntos. Salud actual: " + saludActual);
-
-        if (saludActual <= 0)
+        if (currentShield < maxShield)
         {
-            Morir();
+            shieldRegenTimer += Time.deltaTime;
+
+            if (shieldRegenTimer >= shieldRegenDelay)
+            {
+                currentShield += shieldRegenRate * Time.deltaTime;
+                if (currentShield > maxShield)
+                    currentShield = maxShield;
+
+                UpdateUI();
+            }
         }
     }
 
-    public void Curar(float cantidad)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        saludActual += cantidad;
-        if (saludActual > saludMaxima)
+        for (int i = 0; i < damageTags.Length; i++)
         {
-            saludActual = saludMaxima;
+            if (other.CompareTag(damageTags[i]))
+            {
+                TakeDamage(damageValues[i]);
+                break;
+            }
         }
-        Debug.Log("Jugador se curó: " + cantidad + " puntos. Salud actual: " + saludActual);
     }
 
-    private void Morir()
+    public void TakeDamage(float damage)
     {
-        Debug.Log("El jugador ha muerto.");
+        shieldRegenTimer = 0;
 
+        if (currentShield > 0)
+        {
+            currentShield -= damage;
+            if (currentShield < 0)
+            {
+                currentHealth += currentShield;
+                currentShield = 0;
+            }
+        }
+        else
+        {
+            currentHealth -= damage;
+        }
+
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+            Debug.Log("El jugador ha muerto.");
+        }
+
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        healthBar.size = currentHealth / maxHealth;
+        shieldBar.size = currentShield / maxShield;
+    }
+
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+
+        UpdateUI();
+    }
+
+    public void RechargeShield(float amount)
+    {
+        currentShield += amount;
+        if (currentShield > maxShield)
+            currentShield = maxShield;
+
+        UpdateUI();
     }
 }

@@ -5,7 +5,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth = 100f;
     private float currentHealth;
-
+    public GameObject experienceOrbPrefab;
     public Scrollbar healthBar;
 
     void Start()
@@ -23,7 +23,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
     }
 
@@ -46,6 +46,13 @@ public class EnemyHealth : MonoBehaviour
             TakeDamage(2f);
             Destroy(other.gameObject);
         }
+    }
+    public void Die()
+    {
+        
+        Instantiate(experienceOrbPrefab, transform.position, Quaternion.identity);
+        
+        Destroy(gameObject);
     }
 }
 

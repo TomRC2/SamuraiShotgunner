@@ -18,10 +18,6 @@ public class EnemyBehavior : MonoBehaviour
         {
             player = playerObject.transform;
         }
-        else
-        {
-            Debug.LogWarning("No se encontró un objeto con la etiqueta 'Player'.");
-        }
     }
 
     void Update()
