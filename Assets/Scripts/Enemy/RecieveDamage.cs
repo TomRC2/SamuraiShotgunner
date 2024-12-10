@@ -6,12 +6,19 @@ public class EnemyHealth : MonoBehaviour
     public float maxHealth = 100f;
     private float currentHealth;
     public GameObject experienceOrbPrefab;
-    public Scrollbar healthBar;
+    public GameObject healthOrbPrefab;
+    [Range(0f, 1f)] public float healthOrbDropChance = 0.2f;
+
+    public Slider healthBar;
+
+    private Player player;
 
     void Start()
     {
         currentHealth = maxHealth;
         UpdateHealthBar();
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     public void TakeDamage(float damage)
@@ -31,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (healthBar != null)
         {
-            healthBar.size = currentHealth / maxHealth;
+            healthBar.value = currentHealth / maxHealth;
         }
     }
 
@@ -39,20 +46,31 @@ public class EnemyHealth : MonoBehaviour
     {
         if (other.CompareTag("Sword"))
         {
-            TakeDamage(20f);
+            TakeDamage(player.baseDamage);
         }
         else if (other.CompareTag("Bullet"))
         {
-            TakeDamage(2f);
+            TakeDamage(player.bulletDamage);
             Destroy(other.gameObject);
         }
     }
+
     public void Die()
     {
-        
         Instantiate(experienceOrbPrefab, transform.position, Quaternion.identity);
-        
+
+        if (healthOrbPrefab != null && Random.value < healthOrbDropChance)
+        {
+            Instantiate(healthOrbPrefab, transform.position, Quaternion.identity);
+        }
+
         Destroy(gameObject);
+        FindObjectOfType<EnemySpawner>().OnEnemyDestroyed();
+    }
+    public void SetHealthMultiplier(float multiplier)
+    {
+        maxHealth *= multiplier;
+        currentHealth = maxHealth;
+        UpdateHealthBar();
     }
 }
-

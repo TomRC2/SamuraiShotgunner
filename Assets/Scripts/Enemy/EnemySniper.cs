@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class EnemySniper : MonoBehaviour
 {
-    [Header("Movement Settings")]
+
     private Transform player;
     public float moveSpeed = 2f;
-    public float stopDistance = 5f; 
+    public float stopDistance = 8f; 
 
-    [Header("Shooting Settings")]
     public GameObject projectilePrefab;
     public Transform firePoint;
     public float fireRate = 1f;
@@ -58,6 +57,8 @@ public class EnemySniper : MonoBehaviour
                 Vector2 direction = (player.position - firePoint.position).normalized;
                 rb.velocity = direction * projectileSpeed;
             }
+
+            Destroy(projectile, 3f);
         }
     }
 }

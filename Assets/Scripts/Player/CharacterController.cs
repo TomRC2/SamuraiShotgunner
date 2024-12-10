@@ -8,12 +8,21 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer playerRenderer;
     private Vector2 movement;
 
+    private Player player;
+
     private void Start()
     {
         playerRenderer = GetComponent<SpriteRenderer>();
+        player = GetComponent<Player>();
     }
+
     void Update()
     {
+        if (player != null)
+        {
+            moveSpeed = player.movementSpeed;
+        }
+
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
 
@@ -26,9 +35,9 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
+
     void ReflectPlayerSprite()
     {
-        
         if (movement.x < 0)
         {
             playerRenderer.flipX = true;

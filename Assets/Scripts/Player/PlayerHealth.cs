@@ -7,8 +7,8 @@ public class PlayerHealthShield : MonoBehaviour
     public float maxShield = 100f;
     public float shieldRegenRate = 5f;
     public float shieldRegenDelay = 3f;
-    public Scrollbar healthBar;
-    public Scrollbar shieldBar;
+    public Slider healthBar;
+    public Slider shieldBar;
 
     public string[] damageTags;
     public float[] damageValues;
@@ -48,13 +48,13 @@ public class PlayerHealthShield : MonoBehaviour
         {
             if (other.CompareTag(damageTags[i]))
             {
-                TakeDamage(damageValues[i]);
+                TakeDamages(damageValues[i]);
                 break;
             }
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamages(float damage)
     {
         shieldRegenTimer = 0;
 
@@ -83,8 +83,8 @@ public class PlayerHealthShield : MonoBehaviour
 
     private void UpdateUI()
     {
-        healthBar.size = currentHealth / maxHealth;
-        shieldBar.size = currentShield / maxShield;
+        healthBar.value = currentHealth / maxHealth;
+        shieldBar.value = currentShield / maxShield;
     }
 
     public void Heal(float amount)

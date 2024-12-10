@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4520550343098151515}
   - component: {fileID: 1425413313870672967}
   - component: {fileID: -7185363128668158940}
-  - component: {fileID: 3100409782322230043}
+  - component: {fileID: 338439993789543160}
   m_Layer: 0
-  m_Name: Xp
+  m_Name: Health Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6a02c0f9230bb8542834a078966ce191, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6603774, g: 0.009344946, b: 0.009344946, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.16
---- !u!114 &3100409782322230043
+--- !u!114 &338439993789543160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2731259890760927237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11b38946080af9743ac5012bba060da0, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bfa8206ac2f4bf44970b55e1c4425d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experienceAmount: 20
+  healAmount: 20
