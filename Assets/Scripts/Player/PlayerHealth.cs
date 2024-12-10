@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // Importa el espacio de nombres
 
 public class PlayerHealthShield : MonoBehaviour
 {
@@ -72,10 +73,11 @@ public class PlayerHealthShield : MonoBehaviour
             currentHealth -= damage;
         }
 
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
             Debug.Log("El jugador ha muerto.");
+            SceneManager.LoadScene("Lose"); 
         }
 
         UpdateUI();

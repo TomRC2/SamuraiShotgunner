@@ -49,7 +49,6 @@ public class Player : MonoBehaviour
             {
                 weaponController.shootCooldown = Mathf.Max(1.5f, weaponController.shootCooldown - 0.05f);
 
-                // Cambiar arma en niveles específicos
                 if (level == 5)
                     weaponController.ChangeWeapon(1);
                 else if (level == 10)
